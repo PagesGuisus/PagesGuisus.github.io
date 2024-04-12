@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ola melo</title>
+</head>
+<body>
+    <style>
+      *,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  --background-color: hsl(180, 39%, 86%);
+
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+  min-height: 100vh;
+  padding: 2rem;
+
+  color: hsla(0, 0%, 0%, .6);
+  background: var(--background-color);
+  text-align: center;
+}
+
+h1 {
+  font-size: 3.2rem;
+  padding-top: 2rem;
+}
+
+h1+p {
+  font-size: 1.8rem;
+  padding: 2rem 0 3rem;
+}
+
+.main {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.wrap {
+  margin: 2rem;
+
+  transform-style: preserve-3d;
+  transform: perspective(100rem);
+
+  cursor: pointer;
+}
+
+p.txt{
+  font-size: 1.5vw;
+}
+
+.container {
+  --rX: 0;
+  --rY: 0;
+  --bX: 50%;
+  --bY: 80%;
+
+  width: 30rem;
+  height: 36rem;
+  border: 1px solid var(--background-color);
+  border-radius: 1.6rem;
+  padding: 4rem;
+
+  display: flex;
+  align-items: flex-end;
+
+  position: relative;
+  transform: rotateX(calc(var(--rX) * 1deg)) rotateY(calc(var(--rY) * 1deg));
+
+  background: linear-gradient(hsla(0, 0%, 100%, .1), hsla(0, 0%, 100%, .1)), var(--img-url);
+  background-position: var(--bX) var(--bY);
+  background-size: 40rem auto;
+  box-shadow: 0 0 3rem .5rem hsla(0, 0%, 0%, .2);
+
+  transition: transform .6s 1s;
+}
+
+.container::before,
+.container::after {
+  content: "";
+
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid #fff;
+
+  position: absolute;
+  z-index: 2;
+
+  opacity: .3;
+  transition: .3s;
+}
+
+.container::before {
+  top: 2rem;
+  right: 2rem;
+
+  border-bottom-width: 0;
+  border-left-width: 0;
+}
+
+.container::after {
+  bottom: 2rem;
+  left: 2rem;
+
+  border-top-width: 0;
+  border-right-width: 0;
+}
+
+.container--active {
+  transition: none;
+}
+
+.container p {
+  color: hsla(0, 0%, 100%, .6);
+  font-size: 2.2rem;
+}
+
+.wrap:hover .container::before,
+.wrap:hover .container::after {
+  width: calc(100% - 4rem);
+  height: calc(100% - 4rem);
+}
+    </style>
+
+    <h1>Para Melo</h1>
+<p>Unas fotos.</p>
+
+<section class="main">
+
+  <div class="wrap wrap--1">
+    <div class="container container--1" style="--img-url: url('./imgs/img1.jpeg')">
+      <p>01. Te</p>
+    </div>
+  </div>
+  
+  <div class="wrap wrap--2">
+    <div class="container container--2" style="--img-url: url('./imgs/img2.jpeg')">
+      <p>02. Quiero</p>
+    </div>
+  </div>
+  
+  <div class="wrap wrap--3">
+    <div class="container container--3" style="--img-url: url('./imgs/img3.jpeg'); background-size: cover;">
+      <p>03. Mucho ❤️</p>
+    </div>
+  </div>
+  
+
+</section>
+
+<section>
+  <p class = "txt" style = "text-align: justify;">
+    
+    <br> <br>
+    Querida Melo.
+    <br> <br>
+    Sí, soy yo de nuevo a las 2 am escribiendo otro mensaje. Esta vez no es una propuesta ni nada por el estilo, simplemente lo hago para pedir perdón.
+    <br> <br>
+    
+    Es sabido que últimamente hemos tenido nuestras diferencias y todo es gracias a mí culpa. Nunca creí que te sintieras así de mal y estuvieras aguantando todo eso. Me arrepiento completamente de ello, de todo corazón.
+    <br> <br>
+    
+    A pesar de llevar relativamente poco tiempo, te has vuelto una persona bastante importante para mi vida y quiero que seas parte de ella. Así que aquí estoy, siendo franco y haciendo lo necesario para pedirte perdón, con la esperanza de seguir mucho, pero mucho tiempo más juntos.
+    <br> <br>
+    
+    También soy consciente de todo y, me perdones o no, aceptaré las respectivas consecuencias de mis actos.
+    <br> <br>
+
+    Att: yo
+  </p>
+</section>
+
+  <script>
+
+class parallaxTiltEffect {
+
+constructor({element, tiltEffect}) {
+
+  this.element = element;
+  this.container = this.element.querySelector(".container");
+  this.size = [300, 360];
+  [this.w, this.h] = this.size;
+
+  this.tiltEffect = tiltEffect;
+
+  this.mouseOnComponent = false;
+
+  this.handleMouseMove = this.handleMouseMove.bind(this);
+  this.handleMouseEnter = this.handleMouseEnter.bind(this);
+  this.handleMouseLeave = this.handleMouseLeave.bind(this);
+  this.defaultStates = this.defaultStates.bind(this);
+  this.setProperty = this.setProperty.bind(this);
+  this.init = this.init.bind(this);
+
+  this.init();
+}
+
+handleMouseMove(event) {
+  const {offsetX, offsetY} = event;
+
+  let X;
+  let Y;
+
+  if (this.tiltEffect === "reverse") {
+    X = ((offsetX - (this.w/2)) / 3) / 3;
+    Y = (-(offsetY - (this.h/2)) / 3) / 3;
+  }
+
+  else if (this.tiltEffect === "normal") {
+    X = (-(offsetX - (this.w/2)) / 3) / 3;
+    Y = ((offsetY - (this.h/2)) / 3) / 3;
+  }
+
+  this.setProperty('--rY', X.toFixed(2));
+  this.setProperty('--rX', Y.toFixed(2));
+
+  this.setProperty('--bY', (80 - (X/4).toFixed(2)) + '%');
+  this.setProperty('--bX', (50 - (Y/4).toFixed(2)) + '%');
+}
+
+handleMouseEnter() {
+  this.mouseOnComponent = true;
+  this.container.classList.add("container--active");
+}
+
+handleMouseLeave() {
+  this.mouseOnComponent = false;
+  this.defaultStates();
+}
+
+defaultStates() {
+  this.container.classList.remove("container--active");
+  this.setProperty('--rY', 0);
+  this.setProperty('--rX', 0);
+  this.setProperty('--bY', '80%');
+  this.setProperty('--bX', '50%');
+}
+
+setProperty(p, v) {
+  return this.container.style.setProperty(p, v);
+}
+
+init() {
+  this.element.addEventListener('mousemove', this.handleMouseMove);
+  this.element.addEventListener('mouseenter', this.handleMouseEnter);
+  this.element.addEventListener('mouseleave', this.handleMouseLeave);
+}
+
+}
+
+const $ = e => document.querySelector(e);
+
+const wrap1 = new parallaxTiltEffect({
+element: $('.wrap--1'),
+tiltEffect: 'reverse'
+});
+
+const wrap2 = new parallaxTiltEffect({
+element: $('.wrap--2'),
+tiltEffect: 'normal'
+});
+
+const wrap3 = new parallaxTiltEffect({
+element: $('.wrap--3'),
+tiltEffect: 'reverse'
+});
+  </script>  
+
+</body>
+</html>
