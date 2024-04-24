@@ -91,3 +91,18 @@ const wrap3 = new parallaxTiltEffect({
 element: $('.wrap--3'),
 tiltEffect: 'reverse'
 });
+
+const wrap4 = new parallaxTiltEffect({
+  element: $('.wrap--4'),
+  tiltEffect: 'reverse'
+  });
+  
+  const wrap5 = new parallaxTiltEffect({
+  element: $('.wrap--5'),
+  tiltEffect: 'normal'
+  });
+  
+  const wrap6 = new parallaxTiltEffect({
+  element: $('.wrap--6'),
+  tiltEffect: 'reverse'
+  });
